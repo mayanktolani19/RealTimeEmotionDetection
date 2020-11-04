@@ -10,14 +10,21 @@
 
 <body>
   <div class="rating-modal d-flex justify-content-center align-items-center">
-    <div class="rating-section d-flex flex-column justify-content-start align-items-center" style="width: 1200px;height: auto;">
+    <div class="rating-section col-11 col-sm-8 col-md-6 col-lg-5  d-flex flex-column justify-content-start align-items-center">
       <h3 class="rating-heading" style="margin-top: 20px; margin-bottom: 40px;">Emotion Detection</h3>
-      <div class="quality-section">
-          <div style="display:table-cell; vertical-align:middle; text-align:center">
-              <img id="bg" src="{{ url_for('video_feed') }}" style="width: 800px;">
-          </div> 
+       <div class="quality-section">
+        <p class="quality-heading">Analyzing emotions has never been easier &#128512;</p>
+        <div class="d-flex flex-nowrap justify-content-around">
+           
+            <i class="fas fa-star filled-stars"></i>
+            <i class="fas fa-star filled-stars"></i>
+            <i class="fas fa-star filled-stars"></i>
+            <i class="fas fa-star filled-stars"></i>
+            <i class="fas fa-star filled-stars"></i>
+        </div>
+       
       </div>
-       <a class="return-home-btn" href="{{ url_for('home') }}">Exit Application &#128533;</a>
+       <a class="return-home-btn" href="{{ url_for('index') }}">Analyze My Emotions &#128151;</a>
     </div>
   </div>
 
