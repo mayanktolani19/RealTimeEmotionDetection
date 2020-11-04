@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+body {
+ font-family: 'Quicksand', sans-serif; 
+}
+
+@media only screnn and (min-width: 320px) and max-width(991.98px){
+  font-size: 14px !important;
+}
+@media only screena and (min-width: 992px){
+  font-size: 16px !important;
+}
+
+.rating-modal {
+  background-color: #cbcbf3;
+  min-height: 100vh;
+  text-align: center;
+}
+.rating-section {
+  background-color: #1a1832;
+  color: #ffffff;
+  min-height: 50vh;
+  border-radius: 5px;
+  padding-bottom: 30px;
+}
+.rating-heading {
+  font-size: 20px !important;
+  margin-bottom: 25px;
+}
+.quality-section {
+  width: 80%;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 30px;
+  padding-bottom: 25px;
+  background-color: #282547;
+  color: #ffffff;
+}
+.quality-heading {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+.cross-icon{
+  color: rgba(255,255,225,0.8);
+  align-self: right;
+}
+.filled-stars{
+  color: #F3D779;
+  font-size: 1.3rem;
+}
+.unfilled-stars{
+  color: #F3D779;
+  font-size: 1.3rem;
+}
+.return-home-btn{
+  background-color: #6754AE;
+  border:none ;
+  color: white;
+  padding: 10px 14%;
+  border-radius: 2px;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+.return-home-btn:hover{
+  transform: scale(1.02);
+}
+.return-home-btn:active,.return-home-btn:focus {
+   outline: none !important;
+   box-shadow: none;
+}
+.join-again-link{
+  margin-top: 2.2rem;
+  color: rgba(255,255,255,0.7);
+}
+.join-again-link:hover{
+  text-decoration: none;
+  color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
