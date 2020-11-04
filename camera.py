@@ -1,48 +1,32 @@
 import cv2
+from model import FacialExpressionModel
 import numpy as np
-from tensorflow.keras.models import model_from_json
-from keras.preprocessing import image
 
-
-
-
-model = model_from_json(open("model.json", "r").read())
-model.load_weights('model_weights.h5')
-face_haar_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+model = FacialExpressionModel("model.json", "model_weights.h5")
 font = cv2.FONT_HERSHEY_SIMPLEX
-cap=cv2.VideoCapture(0)
 
-class VideoCamera():
-    while True:
-        ret,test_img=cap.read()
-        if not ret:
-            continue
-        gray_img= cv2.cvtColor(test_img, cv2.COLOR_BGR2GRAY)
-    
-        faces_detected = face_haar_cascade.detectMultiScale(gray_img, 1.3, 5)
-        for (x,y,w,h) in faces_detected:
-            emotions = ('Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral')
-            fc = gray_img[y:y+h, x:x+w]
+class VideoCamera(object):
+    def __init__(self):
+        self.video = cv2.VideoCapture(0)
+
+    def __del__(self):
+        self.video.release()
+
+    # returns camera frames along with bounding boxes and predictions
+    def get_frame(self):
+        _, fr = self.video.read()
+        gray_fr = cv2.cvtColor(fr, cv2.COLOR_BGR2GRAY)
+        faces = facec.detectMultiScale(gray_fr, 1.3, 5)
+
+        for (x, y, w, h) in faces:
+            fc = gray_fr[y:y+h, x:x+w]
+
             roi = cv2.resize(fc, (48, 48))
-            preds = model.predict(roi[np.newaxis, :, :, np.newaxis])
-            pred = emotions[np.argmax(preds)]
-            cv2.putText(test_img, pred, (x, y), font, 1, (255, 255, 0), 2)
-            cv2.rectangle(test_img,(x,y),(x+w,y+h),(255,0,0),2)
-            
-    
-            #find max indexed array
-            max_index = np.argmax(pred[0])
-    
-            
-            predicted_emotion = emotions[max_index]
-    
-        resized_img = cv2.resize(test_img, (1000, 700))
-        cv2.imshow('Facial emotion analysis ',resized_img)
-    
-    
-    
-        if cv2.waitKey(10) == ord('q'):#wait until 'q' key is pressed
-            break
+            pred = model.predict_emotion(roi[np.newaxis, :, :, np.newaxis])
 
-cap.release()
-cv2.destroyAllWindows
+            cv2.putText(fr, pred, (x, y), font, 1, (255, 255, 0), 2)
+            cv2.rectangle(fr,(x,y),(x+w,y+h),(255,0,0),2)
+
+        _, jpeg = cv2.imencode('.jpg', fr)
+        return jpeg.tobytes()
